@@ -1,12 +1,10 @@
 import axios from "axios";
 import user from "../pages/UserInfoPage";
 
-const url = "http://127.0.0.1:5000"
-
 
 export const login = async (user, callback) => (
 
-    await axios.get('http://127.0.0.1:5000/login/?googleId=' + user.googleId
+    await axios.get('http://4ffc-217-197-0-75.ngrok.io/login/?googleId=' + user.googleId
     + '&fio=' + user.name + '&email=' + user.email + '&imageUrl=' + user.imageUrl)
         .then(response => {
             console.log(response.data.userInfo)
@@ -20,7 +18,7 @@ export const login = async (user, callback) => (
 export const getBooksUser = async (user, page, callback) => {
 
 
-    await axios.get('http://127.0.0.1:5000/getBooksUser/?id_user='+user.id_user+'&limit=10&page='+page)
+    await axios.get('http://4ffc-217-197-0-75.ngrok.io/getBooksUser/?id_user='+user.id_user+'&limit=10&page='+page)
         .then(response => {
             callback(response.data.countRecord, response.data.booksUser);
         })
@@ -34,7 +32,7 @@ export const getBooks = async (params, page, callback) =>{
     console.log(params)
     console.log(page)
 
-    await axios.get('http://127.0.0.1:5000/getBooks/?name='+params.name
+    await axios.get('http://4ffc-217-197-0-75.ngrok.io/getBooks/?name='+params.name
     + '&author=' + params.author + '&genre=' + params.genre + '&limit=10&page='+page)
         .then(response => {
             callback(response.data.countRecord, response.data.books)
@@ -49,7 +47,7 @@ export const getUsersInfo = async (params, page, callback) =>{
     console.log(params)
     console.log(page)
 
-    await axios.get('http://127.0.0.1:5000/getUsers/?fio='+params.fio
+    await axios.get('http://4ffc-217-197-0-75.ngrok.io/getUsers/?fio='+params.fio
         + '&email=' + params.email + '&genre=' + params.genre + '&limit=10&page='+page)
         .then(response => {
             callback(response.data.countRecord, response.data.users)
