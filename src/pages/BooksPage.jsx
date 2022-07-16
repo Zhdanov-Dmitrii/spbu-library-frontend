@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Pagination from "../component/UI/Pagination";
 import {getBooks, getBooksUser, login} from "../API/getRequest";
+import {useHistory} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 const BooksPage = (user) => {
+    const router = useHistory();
 
     const [currentPage, setCurrentPage] = useState(1)
     const [countRecord, setCountRecord] = useState(0)
@@ -14,10 +17,14 @@ const BooksPage = (user) => {
         rate: undefined,
     }]);
     const [params, setParams] = useState({
-        name: undefined,
-        author: undefined,
-        genre: undefined
+        name: '',
+        author: '',
+        genre: ''
     })
+
+    useEffect(() => {
+        changePage(1)
+    },[])
 
     async function changePage (page){
         setCurrentPage(page)
@@ -95,7 +102,7 @@ const BooksPage = (user) => {
                         </div>
 
                         <div className="mb-3">
-                            <button onClick={onSearchClick} id="search">Поиск</button>
+                            <Button variant={"primary"} onClick={onSearchClick} id="search">Поиск</Button>
                         </div>
                     </form>
                 </div>
@@ -112,10 +119,15 @@ const BooksPage = (user) => {
                         </thead>
                         <tbody>
                         {books.map((item,index) =>(
-                            <tr key = {index+(currentPage-1)*10}>
+                            <tr key = {index+(currentPage-1)*10}
+                                onDoubleClick={e =>{
+                                    if(!!user.user.user.id_user)
+                                        router.push('/bookInfo/' + user.user.user.id_user + '/' + item.id_book)
+                                }}
+                            >
                                 <td>{index+1+(currentPage-1)*10}</td>
                                 <td>{item.name}</td>
-                                <td>{item.author}</td>
+                                <td>{"".concat(item.authors)}</td>
                                 <td>{item.genre}</td>
                                 <td>{item.rate}</td>
                             </tr>

@@ -2,7 +2,6 @@ import React from 'react';
 import {Button, Nav, Navbar} from "react-bootstrap";
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import {useHistory} from "react-router-dom";
-import {currentUser} from "../../Constants/currentUserInfo";
 import {login} from "../../API/getRequest";
 
 const clientId = "943068152828-cau7auhon1lj00q6cn8v80nkto9gvq7p.apps.googleusercontent.com";
@@ -12,7 +11,7 @@ const Navibar = ({user, setUser}) => {
     const router = useHistory();
 
     const onLoginSuccess = async (res) => {
-        await login(res.profileObj,setUser);
+        await login(res.profileObj,getLoginCallback);
     };
 
     const onLoginFailure = (res) => {
@@ -30,7 +29,7 @@ const Navibar = ({user, setUser}) => {
 
     return(
         <Navbar bg="dark" variant="dark">
-            <Navbar.Brand onClick={()=>router.push('/main')}>Книжная паутина</Navbar.Brand>
+            <Navbar.Brand>Книжная паутина</Navbar.Brand>
             <Navbar.Toggle aria-controls={"responsive-navbar-nav"}/>
             <Navbar.Collapse id={"responsive-navbar-nav"}>
                 <Nav className={"mr-auto"}>
@@ -45,14 +44,8 @@ const Navibar = ({user, setUser}) => {
                     !user.googleId ? null
                         :<Button variant={"primary"}
                                  onClick={()=>{
-                                     currentUser.fio =user.fio;
-                                     currentUser.id_user= user.id_user;
-                                     currentUser.email = user.email;
-                                     currentUser.imageUrl = user.imageUrl;
-                                     currentUser.genre = user.genre;
-                                     currentUser.googleId = user.googleId;
-                                     console.log(currentUser);
-                                     router.push('/userInfo')}}>
+                                     console.log(user)
+                                     router.push('/userInfo/'+user.id_user)}}>
                             Личный кабинет
                          </Button>
                 }

@@ -1,12 +1,26 @@
 import React from 'react';
+import {Table,Form} from "react-bootstrap";
 
 
 
 const MainPage = () =>{
 
     return(
-        <div style={{ backgroundImage: `url(https://proprikol.ru/wp-content/uploads/2020/03/kartinki-biblioteka-12.jpg)`,height: 787}}>
-            <h1>Делитесь впечатлениями от книг</h1>
+        <div>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>1</th>
+                    </tr>
+                </thead>i
+                <tbody>
+                    <tr>
+                        <td>
+                            <Form.Control type="email" placeholder="name@example.com" />
+                        </td>
+                    </tr>
+                </tbody>
+            </Table>
         </div>
     );
 }

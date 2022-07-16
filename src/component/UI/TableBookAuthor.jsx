@@ -1,23 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {getBooksUser} from "../../API/getRequest";
+import React, {useEffect, useState} from "react";
+import {getBooksAuthor} from "../../API/getRequest";
 import Pagination from "./Pagination";
 import {useHistory} from "react-router-dom";
 
-const TableBookUser = (id_user) => {
+
+const TableBookAuthor = (id_user) => {
     const router = useHistory()
 
     const [currentPage, setCurrentPage] = useState(0)
     const [countRecord, setCountRecord] = useState(0)
-    const [bookUser, setBookUser] = useState([{
-        id_bookRead: undefined,
-        id_book: undefined,
-        name: undefined,
-        author:undefined,
-        status:undefined,
-        genre: undefined,
-        rate: undefined,
-        comment: undefined
-    }]);
+    const [booksAuthor, setBooksAuthor] = useState([{
+        name: '',
+        genre: '',
+        rate:''
+    }])
 
     useEffect(() => {
         changePage(1)
@@ -26,30 +22,28 @@ const TableBookUser = (id_user) => {
 
     async function changePage (page){
         setCurrentPage(page)
-        await getBooksUser(id_user,(page-1), getBookUserCallbacl);
+        await getBooksAuthor(id_user.id_user,(page-1), getBooksAuthorCallback);
     }
 
-    const getBookUserCallbacl = (count, books) => {
+    const getBooksAuthorCallback = (count, books) => {
         setCountRecord(count)
-        setBookUser(books)
+        setBooksAuthor(books)
+        console.log(books)
     }
 
-    return (
+    return(
         <div>
             <table className="table table-striped table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">№</th>
                     <th scope="col">Название</th>
-                    <th scope="col">Автор</th>
-                    <th scope="col">Статус</th>
                     <th scope="col">Жанр</th>
-                    <th scope="col">Оценка</th>
-                    <th scope="col">Комментарий</th>
+                    <th scope="col">Рейтинг</th>
                 </tr>
                 </thead>
                 <tbody>
-                {bookUser.map((item,index) =>(
+                {booksAuthor.map((item,index) =>(
                     <tr key = {index+(currentPage-1)*10}
                         onDoubleClick={ e => {
                             console.log(id_user)
@@ -58,11 +52,8 @@ const TableBookUser = (id_user) => {
                     >
                         <td>{index+1+(currentPage-1)*10}</td>
                         <td>{item.name}</td>
-                        <td>{item.author}</td>
-                        <td>{item.status}</td>
                         <td>{item.genre}</td>
                         <td>{item.rate}</td>
-                        <td>{item.comment}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -73,7 +64,7 @@ const TableBookUser = (id_user) => {
                 changePage={changePage}
             />
         </div>
-    );
-};
+    )
+}
 
-export default TableBookUser;
+export default TableBookAuthor

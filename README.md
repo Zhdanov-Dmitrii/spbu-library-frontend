@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Frontend "Книжная Паутина"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Описание
+Проект выполнен в рамках учебных дисциплин Основы Баз Данных и WEB-технологии.
 
-## Available Scripts
+Языки программирования и технологии: JavaScript, React, Python, Flask, Postgresql
 
-In the project directory, you can run:
+Приложение представляет из себя платформу для оценки книг. Приложение позволяет получать по список книг содержащую информацию о названии, авторе, жанрах и рейтинге на основе оставленных пользователями отзывов, информацию о конкретной книге, содержащую вышеперечисленную информацию и список пользователей, оставивших отзыв; получать список зарегистрированных пользователей содержащий ФИО, email, любимые жанры; получать информацию о конкретном пользователе, содержащую вышеперечисленную информацию вместе с фотографией пользователя списка книг, автором которых является пользователь, и списка книг, на которые пользователь оставил отзыв. Регистрация в приложении происходит через google аккаунт и вносит пользователя в базу читателей и дает ему возможность оставлять отзывы на книги.
 
-### `npm start`
+### Роли пользователей:
+* Гость - не авторизованный пользователь
+* Пользователь
+* Администратор
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Права Гостя:
+* Искать книги
+* Искать и просматривать пользователей
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Права Пользователя:
+* Права Гостя
+* Редактировать личный кабинет
+* Просматривать/оставлять/изменять отзывы на книги
+* Добавлять книг, автором которых является пользователь
 
-### `npm test`
+### Права Администратора:
+* Права Пользователя
+* Назначать Администратора
+* Редактирование личного кабинета любогопользователя
+* Изменение отзывов любых пользователей
+* Добавление книг с произвольным автором
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Интерфейс
 
-### `npm run build`
+**Навигационная панель** - находится на каждой странице. Содержит кнопки для перехода на список книг и читателей, кнопку входа через google-аккаунт. Для авторизированных пользователей есть кнопка личный кабинет, для перехода на страницу с информацией о себе.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Список книг** - содержит три строки ввода параметров поиска: название, автор, жанр. Кнопку поиска. Таблицу с результатами, содержащую название, автора, жанр книги и рейтинг на основе оставленных пользователями отзывов. Двойной щелчок Пользователем по записи таблицы переводит на страницу с подробной информацией о книге.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Информация о книге** - содержит название, автора, жанры и рейтинг книги, панель для отображения/добавления отзыва с ссылкой на ЛК автора.  Для зарегистрированных пользователей дает возможность оставить отзыв книге. Содержит так же таблицу с пользователями, оставившими отзыв. Таблица содержит ФИО пользователя, оценку и комментарий к книге. Двойной щелчок по записи отображает данный отзыв на странице.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Информация о читателе** - содержит фотографию, ФИО, email, любимые жанры, пользователя, кнопку для изменения ЛК. А также таблицу, книгами автором которых является пользователь, и таблицу с книгами, на которые пользователь оставил отзыв. Двойной щелчок по записи таблицы переводит на страницу с онформацией о книге.
 
-### `npm run eject`
+**Список читателей** - содержит три поля ввода параметров поиска: ФИО, email, любимые жанры. Кнопку поиска. Таблицу с результатами, содержащую ФИО, email, любимые жанры. Двойной щелчок по записи таблицы переводит на страницу с подробной информацией о пользователях. Администраторам доступна кнопка добавления пользователей.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Изменение/добавление пользователя** - содержит 3 поля ввода: ФИО, ссылку на изображение, email; таблицу с жанрами. Клик по записи помечает запись как любимый жанр пользователя.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Изменение/добавление книг**  - содержит 3 поля ввода для поиска пользователей, полледля ввода названия книги.  Таблицы с пользователями и жанрами. Клик по записи помечает запись как автора и любимый жанр пользователя соответственно.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Инструкция по запуску
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Для запуска приложения необходимо выполнить следующиую команду:
 
-## Learn More
+``` 
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Приложение откроется в браузере по адрессу http://localhost:3000/.

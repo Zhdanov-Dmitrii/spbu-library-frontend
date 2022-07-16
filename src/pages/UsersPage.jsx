@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {getBooks, getUsersInfo} from "../API/getRequest";
 import Pagination from "../component/UI/Pagination";
-import {currentUser} from "../Constants/currentUserInfo";
 import router from "react-router-dom/es/Router";
 import {useHistory} from "react-router-dom";
+import {Button, Form, Table} from "react-bootstrap";
 
 const UsersPage = (user) => {
     const router = useHistory()
@@ -22,6 +22,10 @@ const UsersPage = (user) => {
         email: '',
         genre: ''
     })
+
+    useEffect(() => {
+        changePage(1)
+    },[])
 
     async function changePage (page){
         setCurrentPage(page)
@@ -47,6 +51,7 @@ const UsersPage = (user) => {
     }
 
     return (
+
         <div className="container">
             <div className="row">
                 <div className="col-3 mt-3">
@@ -87,7 +92,7 @@ const UsersPage = (user) => {
                         </div>
 
                         <div className="mb-3">
-                            <button onClick={onSearchClick} id="searchUsers">Поиск</button>
+                            <Button variant={"primary"} onClick={onSearchClick} id="searchUsers">Поиск</Button>
                         </div>
                     </form>
                 </div>
@@ -106,13 +111,7 @@ const UsersPage = (user) => {
                         {users.map((item,index) =>(
                             <tr key = {index+(currentPage-1)*10}
                                 onDoubleClick={ e => {
-                                    currentUser.fio =item.fio;
-                                    currentUser.id_user= item.id_user;
-                                    currentUser.email = item.email;
-                                    currentUser.imageUrl = item.imageUrl;
-                                    currentUser.genre = item.genre;
-                                    currentUser.googleId = item.googleId;
-                                    router.push('/userInfo')
+                                    router.push('/userInfo/'+item.id_user)
                                 }}
                             >
                                 <td>{index+1+(currentPage-1)*10}</td>
@@ -130,6 +129,14 @@ const UsersPage = (user) => {
                     />
                 </div>
             </div>
+            {
+                (user.user.user.rule === 2)?
+                    <Button variant={"primary"}
+                            onClick={()=>{
+                                router.push('/addUser/-1')}}>
+                        Добавить пользователя
+                    </Button> : null
+            }
         </div>
     );
 };
